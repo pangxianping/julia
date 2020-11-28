@@ -2908,7 +2908,11 @@ end
         @eval C.a(2)
         @eval C.b()
     end
-    @test !isempty(flatten_times(timing))
+    ft = flatten_times(timing)
+    @test !isempty(ft)
+    str = sprint(show, ft)
+    @test occursin("InferenceFrameInfo for /(1::$Int, ::$Int)", str)  # inference constants
+    @test occursin("InferenceFrameInfo for Core.Compiler.Timings.ROOT()", str) # qualified
 end
 
 # issue #37638
