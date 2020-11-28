@@ -2879,6 +2879,7 @@ end
     timing1 = time_inference() do
         @eval M.g(2, 3.0)
     end
+    @test occursin(r"Core.Compiler.Timings.Timing\(InferenceFrameInfo for Core.Compiler.Timings.ROOT\(\)\) with \d+ children", sprint(show, timing1))
     # The last two functions to be inferred should be `i` and `i2`, inferred at runtime with
     # their concrete types.
     @test sort([mi_info.mi.def.name for (time,mi_info) in flatten_times(timing1)[end-1:end]]) == [:i, :i2]
@@ -2923,4 +2924,3 @@ f37943(x::Any, i::Int) = getfield((x::Pair{false, Int}), i)
 g37943(i::Int) = fieldtype(Pair{false, T} where T, i)
 @test only(Base.return_types(f37943, Tuple{Any, Int})) === Union{}
 @test only(Base.return_types(g37943, Tuple{Int})) === Union{Type{Union{}}, Type{Any}}
-

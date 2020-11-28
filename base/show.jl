@@ -1016,6 +1016,10 @@ function show(io::IO, mi_info::Core.Compiler.Timings.InferenceFrameInfo)
     end
 end
 
+function show(io::IO, tinf::Core.Compiler.Timings.Timing)
+    print(io, "Core.Compiler.Timings.Timing(", tinf.mi_info, ") with ", length(tinf.children), " children")
+end
+
 function show_delim_array(io::IO, itr::Union{AbstractArray,SimpleVector}, op, delim, cl,
                           delim_one, i1=first(LinearIndices(itr)), l=last(LinearIndices(itr)))
     print(io, op)
