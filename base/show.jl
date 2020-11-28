@@ -992,7 +992,7 @@ function show(io::IO, l::Core.MethodInstance)
             show(io, def)
         else
             print(io, "MethodInstance for ")
-            show_tuple_as_call(io, def.name, l.specTypes)
+            show_tuple_as_call(io, def.name, l.specTypes, false, nothing, nothing, true)
         end
     else
         print(io, "Toplevel MethodInstance thunk")
